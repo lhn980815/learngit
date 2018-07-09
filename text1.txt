@@ -1,0 +1,63 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+#include <string.h>
+using namespace std;
+
+struct SeqString{
+ int MAXNUM;
+ int n;
+ char* c;
+ 	
+};
+typedef struct SeqString* PSeqString;
+
+PSeqString create_str(int m){
+	PSeqString s = (PSeqString)malloc(sizeof(struct SeqString));
+	if(s!=NULL){
+		s ->c=(char *)malloc(sizeof(char)*m);
+		if(s ->c){
+			s->n=m;
+			s->MAXNUM=100;
+			return s;
+		}
+		
+		else free(s);
+	}
+	cout<<"out of space!\n";
+}
+
+int find_char(PSeqString s){
+    int i,j;
+    bool flag=0;
+    for(i=0;i<s->n;i++){
+    	flag=0;
+    	for(j=0;j<s->n;j++){
+	    	if(s->c[i]==s->c[j]&&j!=i)
+	    	{ flag=1;
+			  break;}
+	    }
+	    if(flag==0)
+	    {
+    		return i;
+    	}
+       
+    }
+}
+
+
+int main(){
+   int n, m;
+   cout<<"ÊäÈëÄãµÄ×Ö·û´®µÄ×ÖÄ¸¸öÊý£º"<<endl;
+   cin>>n; 
+   PSeqString s;
+   s = create_str(n);
+   cout<<"ÇëÊäÈëÄãµÄ×Ö·û´®"; 
+   for(int i=0;i<s->n;i++){
+   	  cin>>s->c[i];
+   }	
+   m = find_char(s);
+   cout<<m<<endl;
+   return 0;
+}
